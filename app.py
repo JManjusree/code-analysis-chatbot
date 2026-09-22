@@ -17,15 +17,12 @@ env_path = os.path.join(
     ".env"
 )
 
-load_dotenv(env_path)
-
-api_key = os.getenv("GROQ_API_KEY")
-
+load_dotenv(env_path)  # still works fine for local dev
+api_key = os.getenv("GROQ_API_KEY") or st.secrets.get("GROQ_API_KEY")
 
 if not api_key:
     st.error("GROQ_API_KEY is not set.")
     st.stop()
-
 
 # Initialize Groq model
 llm = ChatGroq(
